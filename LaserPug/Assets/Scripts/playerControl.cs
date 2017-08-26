@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class playerControl : MonoBehaviour
 {
+    public GameObject playerLaserGO;//this is our player's laser prefab
+    public GameObject laserPosition01;
+    public GameObject laserPosition02;
+
     public float speed;
 	// Use this for initialization
 	void Start ()
@@ -14,6 +18,18 @@ public class playerControl : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        //fire laser when the spacebar is pressed
+        if(Input.GetKeyDown("space"))
+        {
+            //instantiate the first laser
+            GameObject laser01 = (GameObject)Instantiate(playerLaserGO);
+            laser01.transform.position = laserPosition01.transform.position;//set the laser initial position
+
+            //instantiate the second laser
+            GameObject laser02 = (GameObject)Instantiate(playerLaserGO);
+            laser02.transform.position = laserPosition02.transform.position;
+        }
+
         float x = Input.GetAxisRaw("Horizontal");//the value will be -1, 0, or 1 (for left, no input and right)
         float y = Input.GetAxisRaw("Vertical");//the value will be -1, 0 or 1 (for down, no input and up)
 
