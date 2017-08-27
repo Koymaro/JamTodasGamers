@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerBulletTag
+  - EnemyBulletTag
+  - PlayerCharacterTag
+  - EnemyCharacterTag
+  - ScoreTextTag
   layers:
   - Default
   - TransparentFX

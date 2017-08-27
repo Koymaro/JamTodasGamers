@@ -33,4 +33,14 @@ public class playerLaser : MonoBehaviour
             Destroy(gameObject);
         }
 	}
+
+    //will trigger when detect a collision of our game objects
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        //detect colision of the player character with an enemy character or with an enemy bullet
+        if (col.tag == "EnemyCharacterTag")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

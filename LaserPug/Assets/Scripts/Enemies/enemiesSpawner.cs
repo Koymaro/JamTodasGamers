@@ -9,21 +9,6 @@ public class enemiesSpawner : MonoBehaviour
 
     float maxSpawnRateInSeconds = 5f;
 
-	// Use this for initialization
-	void Start ()
-    {
-        Invoke("SpawnEnemy", maxSpawnRateInSeconds);
-
-        //increase spawn rate every 30 seconds
-        InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
-
     //function to spawn an enemy prefab positioned on the top edge of the screen and randomly between the left and right edge of the screen
     void SpawnEnemy()
     {
@@ -70,5 +55,21 @@ public class enemiesSpawner : MonoBehaviour
         {
             CancelInvoke("IncreaseSpawnRate");
         }
+    }
+
+    //start enemy spawner
+    public void ScheduleEnemySpawner()
+    {
+        Invoke("SpawnEnemy", maxSpawnRateInSeconds);
+
+        //increase spawn rate every 30 seconds
+        InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
+    }
+
+    //stop enemy spawner
+    public void UnschedulEnemySpawner()
+    {
+        CancelInvoke("SpawnEnemy");
+        CancelInvoke("IncreaseSpawnRate");
     }
 }

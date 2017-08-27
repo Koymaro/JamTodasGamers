@@ -1,14 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerControl : MonoBehaviour
 {
+    public GameObject gameManagerGO;//reference to our game manager
+
     public GameObject playerLaserGO;//this is our player's laser prefab
     public GameObject laserPosition01;
     public GameObject laserPosition02;
 
+    //reference to the lives UI test
+    public Text LiveUIText;
+
+    const int MaxLives = 3; //maximum player lives
+    int lives;
     public float speed;
+
+    public void Init()
+    {
+        lives = MaxLives;
+
+        //update the lives UI text
+        LiveUIText.text = lives.ToString();
+
+        //reset the player position to the center of the screen
+        transform.position = new Vector2(0, 0);
+
+        //set this player game obkect to active
+        gameObject.SetActive(true);
+    }
+
 	// Use this for initialization
 	void Start ()
     {
@@ -65,5 +88,26 @@ public class playerControl : MonoBehaviour
 
         //Update the player's postion
         transform.position = playerPos;
+    }
+
+    //will trigger when detect a collision of our game objects
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        //detect colision of the player character with an enemy character or with an enemy bullet
+        if ((col.tag == "EnemyCharacterTag") || (col.tag == "EnemyBulletTag"))
+        {
+            lives--;
+            LiveUIText.text = lives.ToString();
+            if (lives == 0)
+            {
+                //change game manager state to game over state
+                gameManagerGO.GetComponent<gameManager>().SetGameManagerState(gameManager.GameManagerState.GameOver);
+
+                //hide the player's character
+                gameObject.SetActive(false);
+
+                //Destroy(gameObject);
+            }
+        }
     }
 }
